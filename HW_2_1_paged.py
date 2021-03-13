@@ -68,11 +68,8 @@ def superjob(vacancies_container):
         vacancy['salary_curr'] = salary_curr
         vacancies_container.append(vacancy)
     is_next = soup.find_all('span', attrs={"class": "_1BOkc"})
-    print(vacancies_container
-          )
     for n in is_next:
         if n.text == 'Дальше':
-            print(sj_params)
             sj_params['page'] = str(int(sj_params.get('page')) + 1)
             sleep(randint(100, 200)/50)
             superjob(vacancies_container)
@@ -100,7 +97,6 @@ def hh(vacancies_container):
                                       "data-qa": "vacancy-serp__vacancy-compensation"}).text
             money = salary.replace(u'\xa0', u'')
             sal = re.split(' |-', money)
-            print(sal)
             if sal[0].isdigit():
                 salary_min = float(sal[0])
                 salary_max = float(sal[1])
@@ -116,12 +112,10 @@ def hh(vacancies_container):
         vacancy['salary_min'] = salary_min
         vacancy['salary_max'] = salary_max
         vacancy['salary_curr'] = salary_curr
-        print(vacancy)
         vacancies_container.append(vacancy)
     is_next = soup.find_all(attrs={"data-qa": "pager-next"})
     if len(is_next) != 0 and hh_params['page'] != 3:
         hh_params['page'] = str(int(hh_params.get('page')) + 1)
-        print(hh_params.get('page'))
         sleep(randint(100, 200) / 50)
         hh(vacancies_container)
 
